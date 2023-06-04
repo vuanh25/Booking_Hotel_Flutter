@@ -2,6 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 import 'package:travel_app_flutter/helpers/binding.dart';
 import 'package:travel_app_flutter/helpers/constants.dart';
 import 'package:travel_app_flutter/helpers/main_user.dart';
@@ -13,6 +15,8 @@ void main() async{
   await Firebase.initializeApp();
   await GetStorage.init();
   MainUser.instance.onInit();
+  Intl.defaultLocale = 'vi_VN';
+  initializeDateFormatting('vi_VN');
   runApp(const MyApp());
 }
 
@@ -21,6 +25,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+   
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       

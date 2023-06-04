@@ -19,7 +19,6 @@ class HistoryBookingController extends GetxController
     listBooking = [];
     isLoading = true;
     update();
-
     var querySnapShot = await FireStoreServic.instance.getBookings();
     for(var element in querySnapShot.docs)
     {
@@ -31,5 +30,6 @@ class HistoryBookingController extends GetxController
         isLoading = false;
         update();
     }
+
   }
 }

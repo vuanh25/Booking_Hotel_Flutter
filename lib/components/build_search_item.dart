@@ -19,6 +19,7 @@ class BuildSearchItem extends StatelessWidget {
   final DateTime? checkOut;
   final int? numPerson;
   final int? numRoom;
+  final String? city;
   const BuildSearchItem({
     Key? key,
     required this.model,
@@ -26,6 +27,7 @@ class BuildSearchItem extends StatelessWidget {
     this.checkOut,
     this.numPerson,
     this.numRoom,
+    this.city
   }) : super(key: key);
 
   @override
@@ -42,6 +44,7 @@ class BuildSearchItem extends StatelessWidget {
       checkOut: checkOut,
       numPerson: numPerson,
       numRoom: numRoom,
+      city: city,
       ));
 
       Get.find<HotelDetailsController>().results(model.idHotel!);

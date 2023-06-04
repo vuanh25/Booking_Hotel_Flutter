@@ -4,6 +4,8 @@ import 'package:travel_app_flutter/models/hotel_model.dart';
 import 'package:travel_app_flutter/models/reviews_model.dart';
 import 'package:travel_app_flutter/models/user_model.dart';
 
+import '../models/booking_model.dart';
+
 class FireStoreServic {
   FireStoreServic._();
 
@@ -95,6 +97,22 @@ class FireStoreServic {
         .collection("users")
         .doc(_auth.currentUser!.uid)
         .set(model.toMap);
+  }
+  Future<void> updateBooking(BookingModel model) async {
+    return await _db
+        .collection("booking")
+        .doc("LNgcocf1i8wr1fJKrP2h").collection("bookings")
+        .doc(model.idBooking)
+        .update(model.toMap);
+  }
+
+
+   Future<void> deleteBooking(BookingModel model) async {
+    return await _db
+        .collection("booking")
+        .doc("LNgcocf1i8wr1fJKrP2h").collection("bookings")
+        .doc(model.idBooking)
+        .delete();
   }
 
   Future<bool> postReviewById(ReviewModel model) async {

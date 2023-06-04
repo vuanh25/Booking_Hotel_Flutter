@@ -7,7 +7,7 @@ import 'package:travel_app_flutter/components/custom_field.dart';
 import 'package:travel_app_flutter/components/custom_text.dart';
 import 'package:travel_app_flutter/controller/home/home_controller.dart';
 import 'package:travel_app_flutter/helpers/constants.dart';
-import 'package:travel_app_flutter/views/home/hotel_details_screen.dart';
+
 import 'package:travel_app_flutter/views/home/search_option_screen.dart';
 
 class HomeScreen extends GetWidget<HomeController> {

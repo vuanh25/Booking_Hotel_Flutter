@@ -106,6 +106,7 @@ class SearchResultsScreen extends GetWidget<SearchResultsController> {
                         checkOut: checkOut,
                         numPerson: numPerson,
                         numRoom: numRooms,
+                        city: city,
                         );
                     },
                   ),

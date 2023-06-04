@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:travel_app_flutter/controller/home/hotel_details_controller.dart';
 import 'package:travel_app_flutter/controller/home/list_review_controller.dart';
+import 'package:travel_app_flutter/controller/payment/booking_controller.dart';
 import 'package:travel_app_flutter/helpers/format_ext.dart';
 import 'package:travel_app_flutter/views/payment/payment_screen.dart';
 import 'package:travel_app_flutter/views/review/list_review_screen.dart';
@@ -24,13 +25,15 @@ class HotelDetailsScreen extends GetWidget<HotelDetailsController> {
     this.checkIn,
     this.checkOut,
     this.numPerson,
-    this.numRoom
+    this.numRoom,
+    this.city
   }) : super(key: key);
   final HotelModel model;
   final DateTime? checkIn;
   final DateTime? checkOut;
   final int? numPerson;
   final int? numRoom;
+  final String? city;
 
   @override
   Widget build(BuildContext context) {
@@ -304,16 +307,19 @@ class HotelDetailsScreen extends GetWidget<HotelDetailsController> {
                                   text: "Đặt phòng ngay",
                                   onPressed: () {
                                         Get.to(PaymentScreen(
+                                          city: city!,
                                           idHotel: model.idHotel!,
                                           nameHotel: model.name!,
                                           checkIn: checkIn!,
                                           checkOut: checkOut!,
                                           numRoom: numRoom!,
                                           numPerson: numPerson!,
-                                          price: numberOfNights * model.price!,
+                                          price: model.price!,
                                           address: model.location!,
+                                          location: model.location!,
                                           image: model.image!,
                                         ));
+                                        Get.find<BookingController>().setDate(checkIn!,checkOut!,model.price!,model.price!*numberOfNights);
                                   },
                                   radius: 70,
                                 ),
