@@ -31,7 +31,7 @@ class RegisterScreen extends GetWidget<RegisterController> {
                 children: [
                   const SizedBox(height: 30),
                   const CustomText(
-                    text: "register",
+                    text: "Đăng ký tài khoản",
                     fontSize: 40,
                     fontWeight: FontWeight.bold,
                   ),

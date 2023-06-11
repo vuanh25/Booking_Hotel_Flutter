@@ -209,7 +209,8 @@ class SearchOptionScreen extends GetWidget<SearchOptionController> {
                       city: controller.city.text,
                       checkIn: controller.checkInDateTime,
                       checkOut: controller.checkOutDateTime,
-                    );
+                    ); 
+                   
                   },
                 ),
               ],

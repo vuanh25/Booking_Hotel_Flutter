@@ -41,6 +41,7 @@ dependencies:
   get: 4.6.5
   get_storage: 2.0.3
   google_nav_bar: 5.0.6
+  flutter_webview_plugin: ^0.4.0
   # flutter_svg: 1.1.0
   smooth_page_indicator: 1.0.0
   line_icons: 2.0.1

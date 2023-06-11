@@ -10,6 +10,8 @@ import 'package:travel_app_flutter/helpers/constants.dart';
 
 import 'package:travel_app_flutter/views/home/search_option_screen.dart';
 
+import '../../controller/home/search_option_controller.dart';
+
 class HomeScreen extends GetWidget<HomeController> {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -88,16 +90,18 @@ class HomeScreen extends GetWidget<HomeController> {
                           },
                           itemBuilder: (BuildContext context, int index) {
                             return GestureDetector(
-                              // onTap: () => Get.to(
-                              //   () => TourDetailsScreen(
-                              //     model: controller.tours[index],
-                              //   ),
-                              // ),
-                              onTap: () => Get.to(
+                              onTap: (){
+                                Get.to(
                                 () => SearchOptionScreen(
                                   name: controller.popularCategory[index].name!,
                                 ),
-                              ),
+                                );
+                                Get.find<SearchOptionController>().setName(name: controller.popularCategory[index].name!);
+                                
+                               
+                              },
+                              
+                          
                               child: Column(
                                 children: [
                                   ClipRRect(

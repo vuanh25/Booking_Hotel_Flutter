@@ -7,4 +7,5 @@ class LayoutController extends GetxController {
     index = newIndex;
     update();
   }
+
 }

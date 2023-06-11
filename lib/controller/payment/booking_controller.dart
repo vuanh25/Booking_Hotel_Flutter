@@ -52,6 +52,8 @@ class BookingController extends GetxController
           'checkIn': model?.checkIn,
           'checkOut': model?.checkOut,
           'price': model?.price,
+          'price1': model?.price1,
+          'price2': model?.price2,
           'isBooking': model?.isBooking,
           'location': model?.location,
           'image': model?.image,

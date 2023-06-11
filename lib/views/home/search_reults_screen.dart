@@ -9,7 +9,6 @@ import '../../components/custom_text.dart';
 import '../../controller/home/search_results_controller.dart';
 import '../../helpers/constants.dart';
 
-
 // ignore: must_be_immutable
 class SearchResultsScreen extends GetWidget<SearchResultsController> {
   SearchResultsScreen({
@@ -26,6 +25,8 @@ class SearchResultsScreen extends GetWidget<SearchResultsController> {
   final int? numPerson;
   final int? numRooms;
   final String patternOfDateTime = "d MMM";
+  double startPrice = 0;
+  double endPrice = 1000;
 
   String get textOfSearchBox {
     city ??= "";
@@ -71,6 +72,7 @@ class SearchResultsScreen extends GetWidget<SearchResultsController> {
                     ),
                   ),
                 ),
+              
               ],
             ),
           ),
@@ -107,7 +109,7 @@ class SearchResultsScreen extends GetWidget<SearchResultsController> {
                         numPerson: numPerson,
                         numRoom: numRooms,
                         city: city,
-                        );
+                      );
                     },
                   ),
                 );
@@ -119,3 +121,4 @@ class SearchResultsScreen extends GetWidget<SearchResultsController> {
     );
   }
 }
+

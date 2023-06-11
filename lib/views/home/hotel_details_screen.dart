@@ -142,7 +142,7 @@ class HotelDetailsScreen extends GetWidget<HotelDetailsController> {
                     bottom: 0,
                     child: Container(
                       width: Get.width,
-                      height: Get.height * 0.55,
+                      height: Get.height * 0.53,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 15, vertical: 10),
                       decoration: const BoxDecoration(
@@ -319,7 +319,13 @@ class HotelDetailsScreen extends GetWidget<HotelDetailsController> {
                                           location: model.location!,
                                           image: model.image!,
                                         ));
-                                        Get.find<BookingController>().setDate(checkIn!,checkOut!,model.price!,model.price!*numberOfNights);
+                                        Get.find<BookingController>().setDate(
+                                          checkIn!,
+                                          checkOut!,
+                                          model.price!,
+                                          model.price!*numberOfNights,
+                                          
+                                          );
                                   },
                                   radius: 70,
                                 ),
@@ -403,10 +409,7 @@ class _buildDetails extends StatelessWidget {
         );
       case 1: // Details
         return CustomText(text: model.details!);
-      // case 2: // Reviews
-      //   return CustomText(text: "$numberOfNights");
-      // case 2: // Costs
-      //   return CustomText(text: model.costs!);
+   
     }
     return CustomText(text: model.overview!);
   }

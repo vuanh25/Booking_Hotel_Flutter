@@ -43,7 +43,7 @@ class FavotiteScreen extends GetWidget<FavoriteController> {
                     child: CustomText(
                       text: "Bạn chưa yêu thích phòng nào",
                       maxLines: 2,
-                      fontSize: 30,
+                      fontSize: 25,
                     ),
                   );
                 }

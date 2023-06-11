@@ -10,6 +10,7 @@ import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 import '../../models/booking_model.dart';
 import '../../network/firestore_service.dart';
+import '../history/history_booking_controller.dart';
 
 class DetailsBookingController extends GetxController
 {
@@ -22,18 +23,23 @@ class DetailsBookingController extends GetxController
    final dateFormat = "dd/MM/yyyy";
   BookingModel bookingModel = BookingModel();
   int price = 0;
+  int price1 = 0;
+  int price2 = 0;
   int pricePerNight = 0;
   int numberOfNights = 0;
     DateRangePickerController? dateController = DateRangePickerController();
 
-    void setDate(var checkin1,var checkout1,int price1)
+    void setDate(var checkin1,var checkout1,int price_,int price__,int price___)
     {
       checkIn.text =  DateFormat(dateFormat).format(checkin1 as DateTime);
       checkOut.text =  DateFormat(dateFormat).format(checkout1 as DateTime);
      // pricePerNight = price1;
-      price = price1;
-    
+      price = price_;
+      price1 = price__;
+      price2 = price___;
     }
+
+    
 
 
     void getHotelPrice(String idHotel) async
@@ -55,6 +61,8 @@ class DetailsBookingController extends GetxController
     
     try{
       isLoading = true;
+      update();
+
       BookingModel model1 = BookingModel(
         idBooking: model?.idBooking,
         idCity: model?.idCity,
@@ -68,11 +76,14 @@ class DetailsBookingController extends GetxController
         numRoms: model?.numRoms,
         checkIn: model?.checkIn,
         checkOut: model?.checkOut,
-        price: model?.price
+        price: model?.price,
+        price1: model?.price1,
+        price2: model?.price2
       );
       await FireStoreServic.instance.updateBooking(model1);
       isLoading = false;
       update();
+      Get.find<HistoryBookingController>().results();
       print('save successfully!');
     
     }
@@ -90,6 +101,7 @@ class DetailsBookingController extends GetxController
       await FireStoreServic.instance.deleteBooking(model);
       isLoading = false;
       update();
+      Get.find<HistoryBookingController>().update();
       print('delete successfully!');
     }
     catch(e)
@@ -111,12 +123,24 @@ class DetailsBookingController extends GetxController
     checkOutDateTime = dateController?.selectedRange!.endDate;
    
       numberOfNights = checkOutDateTime!.difference(checkInDateTime!).inDays;
+      // Sum price
       int newprice = numberOfNights * pricePerNight;
-      int price1 =  0;
+      int sumprice =  0;
       price = 0;
-      price1 = newprice - price;
+      sumprice = newprice - price;
       price = newprice;
-   
+      if(price1 > price)
+      {
+        price2 = price1 - price; 
+      }
+      else
+      {
+          price2 = 0;
+      }
+       
+      
+      
+      
     checkIn.text = DateFormat(dateFormat).format(dateController?.selectedRange!.startDate as DateTime);
     checkOut.text = DateFormat(dateFormat).format(dateController?.selectedRange!.endDate as DateTime);
     update();
@@ -128,6 +152,8 @@ class DetailsBookingController extends GetxController
     print(dateController?.selectedRange!.startDate);
     print(dateController?.selectedRange!.endDate);
   }
+
+  
 }
 
 class HotelPrice {

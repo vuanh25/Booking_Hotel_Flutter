@@ -5,7 +5,6 @@ import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:travel_app_flutter/components/buid_dialog.dart';
 import 'package:travel_app_flutter/controller/history/history_booking_controller.dart';
 import 'package:travel_app_flutter/controller/home/details_booking_controller.dart';
-import 'package:travel_app_flutter/controller/layout/layout_controller.dart';
 import 'package:travel_app_flutter/helpers/main_user.dart';
 import 'package:travel_app_flutter/models/booking_model.dart';
 import 'package:travel_app_flutter/models/user_model.dart';
@@ -21,22 +20,52 @@ import '../../helpers/format_ext.dart';
 class DetailsBookingScreen extends GetWidget<DetailsBookingController> {
   const DetailsBookingScreen({super.key, required this.model});
   final BookingModel model;
+  final bool check = false;
+  @override
+  Widget editPricr(BookingModel model) {
+    return Column(
+      children: [
+        if (model.isBooking == true)
+          CustomText(
+            text: "Số tiền đã thanh toán:  ${formatCurrency(model.price as int)}",
+            color: Colors.white,
+          )
+      ],
+    );
+  }
+
+ 
+
   @override
   Widget build(BuildContext context) {
     UserModel user = MainUser.instance.model!;
+    int calculateRemainingAmount(int totalAmount, int amountPaid) {
+  if (totalAmount == amountPaid) {
+    return 0;
+  } else if (totalAmount > amountPaid) {
+    return 0;
+  } else {
+    return amountPaid - totalAmount; 
+  }
+}
+
+
+
+
     return GetBuilder<DetailsBookingController>(builder: (controller) {
+      
       return SafeArea(
         child: Scaffold(
           appBar: AppBar(
             elevation: 0.0,
             centerTitle: true,
-            title: const Text("Thông tin chi tiết"),
+            title:  const Text("Thông tin chi tiết"),
           ),
           body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            padding:  const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             child: Container(
               width: Get.width,
-              decoration: const BoxDecoration(
+              decoration:  const BoxDecoration(
                   color: k_primaryColor,
                   borderRadius: BorderRadius.all(Radius.circular(10))),
               child: Padding(
@@ -146,8 +175,18 @@ class DetailsBookingScreen extends GetWidget<DetailsBookingController> {
                       "Địa chỉ: ${model.location}",
                       style: const TextStyle(fontSize: 17, color: Colors.white),
                     ),
+                      CustomText(
+                      text: "Số tiền đã thanh toán:  ${model.isBooking == true?formatCurrency(model.price1 as int) : 0}",
+                      color: Colors.white,
+                    ),
                     CustomText(
                       text: "Tổng tiền:  ${formatCurrency(controller.price)}",
+                      color: Colors.white,
+                    ),
+                   
+                    CustomText(
+                      text:
+                          "Số tiền dư trả lại khách:  ${formatCurrency(controller.price2)}",
                       color: Colors.white,
                     ),
                     Padding(
@@ -163,13 +202,15 @@ class DetailsBookingScreen extends GetWidget<DetailsBookingController> {
                           model.checkIn = model.checkIn;
                           model.checkOut = model.checkOut;
                           model.price = controller.price;
+                          model.price1 = model.price1;
+                          model.price2 = controller.price2;
                           controller.saveBooking(model: model);
                           Get.back();
                           Get.snackbar(
                             "Thông báo",
                             "Lưu thành công",
                           );
-                          Get.find<HistoryBookingController>().update();
+                          //   Get.find<HistoryBookingController>().update();
                         },
                         text: "Xác nhận lưu thay đổi",
                         color: Colors.greenAccent,
@@ -201,11 +242,12 @@ class DetailsBookingScreen extends GetWidget<DetailsBookingController> {
                                   actionTitle: 'Xác nhận',
                                   textColor: const Color(0XFF27ae61),
                                   onPressed: () {
+                                    Get.offAll(const LayoutScreen());
                                     Get.find<DetailsBookingController>()
                                         .deleteBooking(model);
-                                        Get.find<LayoutController>().onTapChange(2);
-                                    Get.to(const LayoutScreen());
-                                  
+                                    Get.find<HistoryBookingController>()
+                                        .results();
+                                    // Get.find<HistoryBookingController>().update();
                                     Get.snackbar(
                                       "Thông báo",
                                       "Huỷ thành công",

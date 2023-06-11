@@ -16,7 +16,7 @@ class HistoryBookingScreen extends GetWidget<HistoryBookingController> {
     return GestureDetector(
       onTap: () {
         Get.to( DetailsBookingScreen(model: model,));
-        Get.find<DetailsBookingController>().setDate(model.checkIn, model.checkOut, model.price!);
+        Get.find<DetailsBookingController>().setDate(model.checkIn, model.checkOut, model.price!,model.price1 == null ? 0 : model.price1!,model.price2 == null ? 0 : model.price2!,);
         Get.find<DetailsBookingController>().getHotelPrice(model.idHotel!);
       },
       child: Padding(
@@ -103,21 +103,24 @@ class HistoryBookingScreen extends GetWidget<HistoryBookingController> {
                     child: CustomText(
                       text: "Bạn chưa đặt phòng nào cả",
                       maxLines: 2,
-                      fontSize: 30,
+                      fontSize: 25,
                     ),
                   );
                 }
 
-                return Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: ListView.separated(
-                    itemCount: controller.listBooking.length,
-                    separatorBuilder: (BuildContext context, int index) {
-                      return const SizedBox(height: 20);
-                    },
-                    itemBuilder: (BuildContext context, int index) {
-                      return buildCard(model: controller.listBooking[index]);
-                    },
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: ListView.separated(
+                      itemCount: controller.listBooking.length,
+                      separatorBuilder: (BuildContext context, int index) {
+                        return const SizedBox(height: 20);
+                      },
+                      itemBuilder: (BuildContext context, int index) {
+                        return buildCard(model: controller.listBooking[index]);
+                      },
+                    ),
                   ),
                 );
               }),

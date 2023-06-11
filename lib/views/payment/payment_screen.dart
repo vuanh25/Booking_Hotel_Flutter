@@ -9,7 +9,7 @@ import 'package:travel_app_flutter/helpers/format_ext.dart';
 import 'package:travel_app_flutter/helpers/main_user.dart';
 import 'package:travel_app_flutter/models/booking_model.dart';
 import 'package:travel_app_flutter/models/user_model.dart';
-import 'package:travel_app_flutter/views/history/history_booking_screen.dart';
+import 'package:travel_app_flutter/views/layout/layout_screen.dart';
 import 'package:vnpay_flutter/vnpay_flutter.dart';
 
 import '../../components/alert_date.dart';
@@ -49,7 +49,8 @@ class PaymentScreen extends GetWidget<BookingController> {
   Widget build(BuildContext context) {
     UserModel user = MainUser.instance.model!;
     String responseCode = "";
-    double price1 = price.toDouble();
+    
+    
     BookingModel model = BookingModel();
     return SafeArea(
       child: Scaffold(
@@ -59,7 +60,9 @@ class PaymentScreen extends GetWidget<BookingController> {
           title: const Text("Thông tin thanh toán"),
         ),
         body: GetBuilder<BookingController>(
+          
           builder: (controller) {
+            double price1 = controller.price.toDouble() ;
             void onPayment() async {
               final paymentUrl = VNPAYFlutter.instance.generatePaymentUrl(
                 url: 'https://sandbox.vnpayment.vn/paymentv2/vpcpay.html',
@@ -67,7 +70,7 @@ class PaymentScreen extends GetWidget<BookingController> {
                 tmnCode: 'O9U5ZOOF',
                 txnRef: DateTime.now().millisecondsSinceEpoch.toString(),
                 amount: price1,
-                orderInfo: price.toString(),
+                orderInfo: price1.toString(),
                 returnUrl: 'http://localhost:3000/return',
                 ipAdress: '192.168.0.105',
                 vnpayHashKey: 'MLGFYWGJOCEEFNMAYUQKDIRPYIXIDRMQ',
@@ -89,6 +92,7 @@ class PaymentScreen extends GetWidget<BookingController> {
                       model.numRoms = numRoom;
                       model.image = image;
                       model.price = price1.toInt();
+                      model.price1 = price1.toInt();
                       model.location = location;
                       model.isBooking = true;
                       controller.saveBooking(model: model);
@@ -96,8 +100,9 @@ class PaymentScreen extends GetWidget<BookingController> {
                         "Thông báo",
                         "Thanh toán thành công",
                       );
-                      Get.to(const HistoryBookingScreen());
-                      Get.find<HistoryBookingController>().results();
+                         
+                        Get.off(const LayoutScreen());
+                        Get.find<HistoryBookingController>().results;
                     } else {
                       responseCode = queryParameters['vnp_ResponseCode']!;
                       Get.snackbar(
@@ -259,8 +264,10 @@ class PaymentScreen extends GetWidget<BookingController> {
                               "Thông báo",
                               "Đặt phòng thành công",
                             );
-                            Get.to(const HistoryBookingScreen());
-                            Get.find<HistoryBookingController>().results();
+                          //  Get.find<LayoutController>().onTapChange(2);
+                            Get.off(const LayoutScreen());
+                            
+                            Get.find<HistoryBookingController>().results;
                           },
                           text: "Thanh toán tại khách sạn",
                           color: Colors.greenAccent,

@@ -20,6 +20,7 @@ class LayoutScreen extends GetWidget<LayoutController> {
 
   @override
   Widget build(BuildContext context) {
+    
     UserModel userModel = MainUser.instance.model!;
     String? uid = userModel.uId;
     return SafeArea(
@@ -49,33 +50,34 @@ class LayoutScreen extends GetWidget<LayoutController> {
             padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 15),
             tabBackgroundColor: k_primaryColor,
             tabs:  [
-              const GButton(
+              GButton(
                 icon: LineIcons.home,
                 text: 'Trang chủ',
+                backgroundColor: controller.index == 0 ? k_primaryColor : null,
               ),
               GButton(
                 onPressed: () async {
-                    // Get.to(() => FavoriteController(
-                    //     ));
                     Get.find<FavoriteController>().results(
                     );
                   },
                 icon: LineIcons.heart,
                 text: 'Yêu thích',
+             
               ),
               GButton(
                  onPressed: () async {
-                    // Get.to(() => FavoriteController(
-                    //     ));
+                   
                     Get.find<HistoryBookingController>().results(
                     );
                   },
                 icon: LineIcons.history,
                 text: 'Phòng đã đặt',
+              
               ),
-              const GButton(
+               const GButton(
                 icon: LineIcons.user,
                 text: 'Hồ sơ',
+               
               )
             ],
           ),

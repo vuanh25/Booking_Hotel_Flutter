@@ -1,12 +1,12 @@
 import 'package:get/get.dart';
 import 'package:travel_app_flutter/helpers/enum_helper.dart';
 
-
 class ValidatorHelper {
   ValidatorHelper._();
   static final instance = ValidatorHelper._();
 
-  String? validator({required String? value, required FieldType type, String? matchText}) {
+  String? validator(
+      {required String? value, required FieldType type, String? matchText}) {
     switch (type) {
       case FieldType.name:
         return _name(value);
@@ -27,43 +27,51 @@ class ValidatorHelper {
 
   String? _name(String? value) {
     if (value == null || value.isEmpty) {
-      return "empty_name".tr;
+      return "Không được để trống".tr;
     }
     if (value.length < 4) {
-      return "short_name".tr;
+      return "Tên quá ngắn".tr;
     }
     return null;
   }
 
   String? _email(String? value) {
     if (value == null || value.isEmpty) {
-      return "empty_email".tr;
+      return "Không được để trống".tr;
     }
-    if (value.length < 6) {
-      return "short_email".tr;
+    if (!RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,}$')
+        .hasMatch(value)) {
+      return "Email không đúng định dạng";
     }
+
     return null;
   }
 
   String? _password(String? value) {
     if (value == null || value.isEmpty) {
-      return "empty_password".tr;
+      return "Không được để trống mật khẩu";
     }
     if (value.length < 6) {
-      return "short_password".tr;
+      return "Mật khẩu quá ngắn phải trên 6 ký tự";
+    }
+    if (!value.contains(RegExp(r'[A-Z]'))) {
+      return "Mật khẩu phải có định dạng chữ hoa chữ thường";
+    }
+    if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+      return "Mật khẩu phải có ký tự";
     }
     return null;
   }
 
   String? _confirmPassword(String? value, String? otherText) {
     if (value == null || value.isEmpty) {
-      return "empty_password".tr;
+      return "Không được để trống mật khẩu";
     }
     if (value.length < 6) {
-      return "short_password".tr;
+      return "Mật khẩu quá ngắn";
     }
     if (value != otherText) {
-      return "not_match_password".tr;
+      return "Mật khẩu không khớp";
     }
     return null;
   }
@@ -87,16 +95,6 @@ class ValidatorHelper {
     }
     if (value.length < 4) {
       return "short_card_holder".tr;
-    }
-    return null;
-  }
-
-  String? _CVC(String? value) {
-    if (value == null || value.isEmpty) {
-      return "empty_CVC".tr;
-    }
-    if (value.length < 4) {
-      return "short_CVC".tr;
     }
     return null;
   }

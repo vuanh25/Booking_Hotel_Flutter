@@ -7,7 +7,7 @@ import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:travel_app_flutter/helpers/enum_helper.dart';
 
 class SearchOptionController extends GetxController {
-  final city = TextEditingController();
+  var city = TextEditingController();
   final checkIn = TextEditingController();
   DateTime? checkInDateTime;
   final checkOut = TextEditingController();
@@ -24,6 +24,7 @@ class SearchOptionController extends GetxController {
     "Cao cấp",
     
   ];
+
 
   int room = 1;
   int adult = 1;
@@ -44,6 +45,11 @@ class SearchOptionController extends GetxController {
   }
 
 
+
+ void setName({required String name})
+ {
+    city.text = name;
+ }
 
   void onSelectDate(){
     if(dateController?.selectedRange!.startDate == null) return;
